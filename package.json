@@ -1,0 +1,11 @@
+{
+  "name": "s53_top_least_imdb_rated_movies-tollywood",
+  "version": "1.0.0",
+  "description": "This is description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
