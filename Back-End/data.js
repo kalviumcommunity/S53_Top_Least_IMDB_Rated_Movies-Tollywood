@@ -15,7 +15,7 @@
     "Hero" : "Ram Charan",
     "Title" : "Vinaya Vidheya Rama",
     "Ratings" : 3.3,
-    "Director" : "Boyapoti Sreenu"
+    "Director" : "Boyapati Sreenu"
   },
   {
     "Hero" : "Mahesh Babu",
