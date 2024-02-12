@@ -1,11 +1,13 @@
 const express = require("express");
 require("dotenv").config();
+
 const app = express();
 const connectDB = require("./db");
 connectDB();
 const PORT = process.env.PORT;
 const router = require("./routes");
-
+const cors = require("cors");
+app.use(cors());
 app.use("/movies", router);
 
 app.get("/ping", (req, res) => res.send("pong"));
