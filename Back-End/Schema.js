@@ -16,6 +16,10 @@ const schema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  Image : {
+    type : String,
+    require : true
+  }
 });
 
 const dataModel = mongoose.model("Movies_list", schema);

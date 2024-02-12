@@ -28,7 +28,8 @@ router.post("/",async(req,res)=>{
     Hero : req.body.Hero,
     Title : req.body.Title,
     Ratings : req.body.Ratings,
-    Director : req.body.Director
+    Director : req.body.Director,
+    Image : req.body.Image
   })
 
   try {
