@@ -29,16 +29,14 @@ router.post("/",async(req,res)=>{
     Title : req.body.Title,
     Ratings : req.body.Ratings,
     Director : req.body.Director
-
   })
 
   try {
     const movie1 = await movie.save()
     res.json(movie1)
-    
   } catch (error) {
-    console.log(err);
-    
+    console.log(error);
+    res.status(500).json({error: error.message});
   }
 })
 
@@ -49,20 +47,19 @@ router.patch("/:id",async (req,res)=>{
       return res.status(404).json({error:"Movie not Found"})
     }
     movie.Ratings = req.body.Ratings
-    const movie1 = await movie.save()
+    const updatedMovie = await movie.save()
+    res.json(updatedMovie);
   } catch (error) {
-    res.send(err)
+    res.status(500).json({error: error.message});
   }
 })
-
 
 router.delete("/:id",async(req,res)=>{
   try {
     const movie = await dataModel.findByIdAndDelete(req.params.id)
-    if(!stunt){
+    if(!movie){
       return res.status(404).json({error: "Movie not found"})
     }
-    await movie.remove();
     res.json({message : "Movie deleted successfully"})
   } catch (error) {
     res.status(500).json({error : error.message})
@@ -70,5 +67,3 @@ router.delete("/:id",async(req,res)=>{
 })
 
 module.exports = router;
-  
-
