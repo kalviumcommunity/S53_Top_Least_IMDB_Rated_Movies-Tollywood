@@ -1,24 +1,35 @@
-import "../App.css"
-import {useEffect} from "react"
-
-const api = "mongodb+srv://jahnaveshreddy:jahnavreddy@cluster0.4atmmjr.mongodb.net/Asap-project"
+import "../App.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Home() {
+  const [data, setData] = useState([]);
 
-  useEffect(()=>{
-    fetch("http://localhost:3000/ping")
-    .then(data=>data.json())
-    .then(res=>console.log(res))
-    .catch(err =>{
-      console.log("error",err)
-    })
-  })
+  useEffect(() => {
+    async function fetchData() {
+      const url = "http://localhost:3000/movies";
+      axios.get(url).then((res) => {
+        console.log(res);
+        setData(res.data);
+        console.log();
+      });
+    }
 
-  return(
-    <div >
+    fetchData();
+  },[]);
 
+  return (
+    <div className="all-movies">
+      {data.map((e)=>(
+        <div className="each-movie">
+          <p>Hero :{e.Hero}</p>
+          <p>Title :{e.Title}</p>
+          <p>Ratings :{e.Ratings}</p>
+          <p>Director :{e.Director}</p>
+        </div>
+      ))}
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
