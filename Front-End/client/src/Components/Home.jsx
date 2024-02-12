@@ -22,6 +22,7 @@ function Home() {
     <div className="all-movies">
       {data.map((e)=>(
         <div className="each-movie">
+
           <p>Hero :{e.Hero}</p>
           <p>Title :{e.Title}</p>
           <p>Ratings :{e.Ratings}</p>
