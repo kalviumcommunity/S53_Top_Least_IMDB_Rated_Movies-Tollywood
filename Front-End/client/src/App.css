@@ -29,7 +29,17 @@ a:hover{
   margin-top:15% ;
 }
 
+.each-movie{
+  border: 1px solid white;
+  width: 200px;
+  height: inherit;
 
+}
 
-
- 
+.all-movies{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  margin-top: 10%;
+  align-items: center;
+}
