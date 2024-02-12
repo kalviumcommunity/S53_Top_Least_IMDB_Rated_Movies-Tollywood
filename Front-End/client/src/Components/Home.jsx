@@ -22,7 +22,7 @@ function Home() {
     <div className="all-movies">
       {data.map((e)=>(
         <div className="each-movie">
-
+          <img src={e.Image} alt="Image not found" />
           <p>Hero :{e.Hero}</p>
           <p>Title :{e.Title}</p>
           <p>Ratings :{e.Ratings}</p>
