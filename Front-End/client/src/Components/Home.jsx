@@ -25,7 +25,7 @@ function Home() {
           <img src={e.Image} alt="Image not found" />
           <p>Hero :{e.Hero}</p>
           <p>Title :{e.Title}</p>
-          <p>Ratings :{e.Ratings}</p>
+          <p>Ratings :☆{e.Ratings}</p>
           <p>Director :{e.Director}</p>
         </div>
       ))}

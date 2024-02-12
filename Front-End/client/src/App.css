@@ -31,9 +31,15 @@ a:hover{
 
 .each-movie{
   border: 1px solid white;
-  width: 200px;
-  height: inherit;
+  width: 240px;
+  height: 450px;
 
+}
+
+.each-movie img{
+  max-height: 300px;
+  min-width: 240px;
+  
 }
 
 .all-movies{
@@ -42,4 +48,5 @@ a:hover{
   gap: 50px;
   margin-top: 10%;
   align-items: center;
+  margin-left: 4%;
 }
