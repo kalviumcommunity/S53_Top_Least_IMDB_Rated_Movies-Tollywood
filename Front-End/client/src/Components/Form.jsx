@@ -1,11 +1,19 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
+import axios from "axios"
 
 export default function FormsUse() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
 
-  const formSubmitHandler = (data) => {
+  const formSubmitHandler = async(data) => {
+
+    try{
+    const movieData= await axios.post("http://localhost:3000/movies/create",data)
+    console.log(movieData);
     console.log(data);
+  }catch(err){
+    console.log(err,"error");
+  }
   };
 
   return (
@@ -56,6 +64,15 @@ export default function FormsUse() {
             })}
           />
           {errors.Director && <p className='err'>{errors.Director.message}</p>}
+
+
+          <label>Image Link :</label>
+          <input 
+          type="text"
+          {...register("Image",{
+            required: "Please provide Image Link"
+          })}
+           />
 
           <input type="submit" className='submit' />
           <button onClick={reset}>RESET</button>
