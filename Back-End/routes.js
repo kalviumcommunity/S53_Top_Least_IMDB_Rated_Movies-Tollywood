@@ -55,26 +55,6 @@ router.put("/:id",async (req,res)=>{
   }
 })
 
-
-router.patch("/:id",async (req,res)=>{
-  try {
-    const {id} = req.params
-    const data = req.body
-    const movie1 =  dataModel.findByIdAndUpdate(id,data)
-
-    if(!movie1){
-      return res.status(404).json({error:"Movie not Found"})
-    }
- 
-
-    const updatedMovie = await movie1.save()
-    res.json(updatedMovie);
-
-  } catch (error) {
-    res.status(500).json({error: error.message});
-  }
-})
-
 router.delete("/:id",async(req,res)=>{
   try {
     const movie = await dataModel.findByIdAndDelete(req.params.id)
