@@ -7,7 +7,7 @@ function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const url = "http://localhost:3000/movies";
+      const url = "http://localhost:3000/movies/movies";
       axios.get(url).then((res) => {
         console.log(res);
         setData(res.data);

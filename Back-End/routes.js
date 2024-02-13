@@ -4,7 +4,7 @@ const router = express.Router();
 const dataModel = require("./Schema");
 app.use(express.json());
 
-router.get("/", async (req, res) => {
+router.get("/movies", async (req, res) => {
   try {
     const newMovie = await dataModel.find();
     console.log("newMovie: ", newMovie);
@@ -23,33 +23,33 @@ router.get("/:id",async (req,res)=>{
   }
 })
 
-router.post("/",async(req,res)=>{
-  const movie = new dataModel({
-    Hero : req.body.Hero,
-    Title : req.body.Title,
-    Ratings : req.body.Ratings,
-    Director : req.body.Director,
-    Image : req.body.Image
-  })
-
+router.post("/create",async(req,res)=>{
+  const data = req.body
+  const movie = new dataModel(data)
+  await movie.save()
+  console.log(data)
   try {
-    const movie1 = await movie.save()
-    res.json(movie1)
+    res.send({message: true , movie:movie})
   } catch (error) {
     console.log(error);
     res.status(500).json({error: error.message});
   }
 })
 
-router.patch("/:id",async (req,res)=>{
+router.put("/:id",async (req,res)=>{
   try {
-    const movie = await dataModel.findById(req.params.id)
-    if(!movie){
+    const {id} = req.params
+    const data = req.body
+    const movie1 =  dataModel.findByIdAndUpdate(id,data)
+
+    if(!movie1){
       return res.status(404).json({error:"Movie not Found"})
     }
-    movie.Ratings = req.body.Ratings
-    const updatedMovie = await movie.save()
-    res.json(updatedMovie);
+ 
+
+    const updatedMovie = await movie1.save()
+    res.json(movie1);
+
   } catch (error) {
     res.status(500).json({error: error.message});
   }
