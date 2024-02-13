@@ -50,3 +50,47 @@ a:hover{
   align-items: center;
   margin-left: 4%;
 }
+
+legend{
+  font-size: 40px;
+}
+
+.form-container{
+  border: 1px solid white;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+  margin-top: 5%;
+  box-shadow: 2px 2px white;
+  border-top-left-radius: 40px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 300px;
+  margin: auto;
+
+}
+
+form label{
+  font-size: 35px;
+  margin-top: 4%;
+}
+
+form button{
+  border: 1px solid white;
+  width: 75px;
+  margin: auto;
+  margin-top: 5%;
+}
+
+.submit{
+  margin-top: 5% ;
+  font-size: 30px;
+  border: 1px solid white;
+  width: 120px;
+}
