@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const router = express.Router();
-router.use("/movies",router)
+app.use("/movies",router)
 const dataModel = require("./Schema");
 
 
