@@ -95,3 +95,21 @@ form button{
   border: 1px solid white;
   width: 120px;
 }
+
+.all-movies2{
+  margin-top: 10%;
+  align-items: center;
+  margin-left: 4%;
+}
+
+.each-movie2 img{
+  max-height: 300px;
+  width: 240px;
+  gap: 50px;
+  margin: 5%;
+}
+
+.each-movie2{
+  width: 1400px;
+  height: 350px;
+}
