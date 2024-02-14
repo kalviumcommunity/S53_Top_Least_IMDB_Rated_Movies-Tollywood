@@ -8,7 +8,7 @@ export default function FormsUse() {
   const formSubmitHandler = async(data) => {
 
     try{
-    const movieData= await axios.post("http://localhost:3000/movies/create",data)
+    const movieData= await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/create",data)
     console.log(movieData);
     console.log(data);
   }catch(err){
