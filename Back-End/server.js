@@ -8,6 +8,7 @@ const PORT = process.env.PORT;
 const router = require("./routes");
 const cors = require("cors");
 app.use(cors());
+app.use(express.json())
 app.use("/movies", router);
 
 app.get("/ping", (req, res) => res.send("pong"));
