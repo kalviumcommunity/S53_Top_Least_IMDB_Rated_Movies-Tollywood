@@ -41,6 +41,9 @@ function Home() {
                 <h2 className="card-title">Ratings : ⭐{e.Ratings}</h2>
                 <p>Click the button to view detailed analysis</p>
                 <div className="card-actions justify-end">
+                  
+                  <button className="btn btn-primary">UPDATE</button>
+                  <button className="btn btn-primary">DELETE</button>
                   <button className="btn btn-primary">GO</button>
               </div>
             </div>
