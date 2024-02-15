@@ -18,6 +18,17 @@ function Home() {
     fetchData();
   },[]);
 
+  const deleteItem = async(id) =>{
+    try {
+      await axios.delete(`https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/${id}`)
+      console.log(id)
+      console.log("Movie deleted Successfully");
+      // fetchData()  
+    } catch (error) {
+      console.log("Error in deleting movie",error);
+    }
+  }
+
   return (
     // <div className="all-movies">
     //   {data.map((e)=>(
@@ -43,7 +54,9 @@ function Home() {
                 <div className="card-actions justify-end">
                   
                   <button className="btn btn-primary">UPDATE</button>
-                  <button className="btn btn-primary">DELETE</button>
+                  <button className="btn btn-primary" onClick={()=>{
+                    deleteItem(e._id)
+                  }}>DELETE</button>
                   <button className="btn btn-primary">GO</button>
               </div>
             </div>
