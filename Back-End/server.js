@@ -12,6 +12,23 @@ app.use(cors());
 app.use("/movies", router);
 
 
+const cookieParser = require("cookie-parser")
+app.use(cookieParser())
+
+app.post("/login",(req,res)=>{
+  const {username , password} = req.body
+
+  res.cookie("username",username,{httpOnly : true})
+  res.send("Login Successful")
+})
+
+app.post("/logout",(req,res)=>{
+  res.clearCookie("username")
+  res.send("Logout successful")
+})
+
+
+
 app.get("/ping", (req, res) => res.send("pong"));
 app.get("/", (req, res) => res.send("Hello!!This is Home Page"));
 
