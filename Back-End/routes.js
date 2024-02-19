@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 app.use("/movies",router)
-const dataModel = require("./Schema");
+const {dataModel , userschema} = require("./Schema");
+
 
 
 router.get("/movies", async (req, res) => {
@@ -31,6 +32,20 @@ router.post("/create", async (req, res) => {
   console.log(data);
   try {
     res.send({ message: true, movie: movie });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+router.post("/createform", async (req, res) => {
+  const data = req.body;
+  const user = new userschema(data);
+  await user.save();
+  console.log(user);
+  try {
+    res.send({ message: true, user  : user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });
