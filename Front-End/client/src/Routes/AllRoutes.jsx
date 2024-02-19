@@ -5,6 +5,7 @@ import Login from "../Components/Login";
 import Home from "../Components/Home";
 import Contact from "../Components/Contact";
 import FormsUse from "../Components/Form";
+import Signup from "../Components/Signup";
 
 function AllRoutes() {
   return <Routes>
@@ -13,6 +14,7 @@ function AllRoutes() {
     <Route path={"/login"} element={<Login />} />
     <Route path="/contact" element={<Contact/>}/>
     <Route path="/form" element={<FormsUse />}/>
+    <Route path="/signup" element={<Signup/>}/>
   </Routes>;
 }
 
