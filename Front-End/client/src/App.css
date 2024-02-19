@@ -122,23 +122,6 @@ form button{
   margin-top: 10%;
 }
 
-.signup{
-  font-size: 50px;
-}
-
-.username{
-  margin-top: 8%;
-
-}
-
-.signUpPage input{
-  padding: 8px;
-  margin-top: 1%;
-}
-
-.password{
-  margin-top: 7%;
-}
 
 .signupBtn{
   margin-top: 8%;
@@ -146,11 +129,15 @@ form button{
   width: 80px;
 }
 
-.about h1{
-  font-size: 45px;
+.signup{
+  border: 1px solid white;
+  width: 600px;
+  height: 740px;
+  margin: auto;
+  margin-top: auto;
+  margin-top: 4%;
 }
 
-.about p{
-  font-size: 30px;
-  margin-top: 5%
+.signup input{
+  padding: 7px;
 }

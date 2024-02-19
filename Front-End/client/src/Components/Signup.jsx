@@ -1,51 +1,104 @@
-import React, { useState } from "react";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import axios from "axios"
 
-function Signup() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const[signUpSuccess,setSignUpSuccess] = useState(false)
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+export default function Signup() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitSuccessful },
+    getValues,
+  } = useForm();
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
 
-  const handleSubmit = () => {
-    console.log("Username:", username);
-    console.log("Password:", password);
-
-    setUsername("")
-    setPassword("")
-    setSignUpSuccess(true)
+  const formSubmitHandler = async (data) => {
+    console.log(data);
+    try {
+      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/createform", data)
+      console.log(response.data)
+      if(response){
+        if (response.data.Message=="User with this email already exists"){
+          alert("This user already exists")
+        }
+      }
+   
+    } catch (error) {
+      console.log("error:", error.message)
+    }
   };
 
   return (
-    <div className="signUpPage">
-      <div>
-        <p className="signup">SIGN UP</p>
-        <p className="username">Username :</p>
-        <input
-          type="text"
-          placeholder="Enter your username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <p className="password">Password :</p>
-        <input
-          type="password"
-          placeholder="Enter your password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-      </div>
-      <button className="signupBtn" onClick={handleSubmit}>
-        SIGNUP
-      </button>
+    <div className="signup">
+      <fieldset>
+        <legend style={{color:"cyan"}}>Signup</legend>
+        <form onSubmit={handleSubmit(formSubmitHandler)}>
+          
+
+          <label style={{ color: 'gold' }}>User Name:</label>
+          <input 
+            type="text"
+            name="Username"
+            placeholder='Enter the User Name'
+            {...register('FirstName', {
+              required: 'Please provide the User Name',
+              minLength: {
+                value: 4,
+                message: 'Minimum four characters required',
+              },
+            })}
+          />
+          {errors.FirstName && <p className="error">{errors.FirstName.message}</p>}
+          <label style={{ color: 'gold' }}>Email:</label>
+          <input
+            type="email"
+            name="Email"
+            placeholder='Enter the Email address'
+            {...register('Email', {
+              required: 'Please provide the Email',
+              minLength: {
+                value: 5,
+                message: 'Type valid Email',
+              },
+            })}
+          />
+          {errors.Email && <p className="error">{errors.Email.message}</p>}
+
+          <label style={{ color: 'gold' }}>Password:</label>
+          <input
+            type="password"
+            name="Password"
+            placeholder='Enter the Password'
+            {...register('Password', {
+              required: 'Please Enter the Password',
+              minLength: {
+                value: 5,
+                message: 'Please enter a valid password',
+              },
+            })}
+          />
+          {errors.Password && <p className="error">{errors.Password.message}</p>}
+
+          <label style={{ color: 'gold' }}>Confirm Password:</label>
+          <input
+            type="password"
+            name="ConfirmPassword"
+            placeholder='Re-Enter your Password'
+            {...register('ConfirmPassword', {
+              required: 'Enter Confirm Password',
+              validate: {
+                matchesPassword: (value) => {
+                  const password = getValues('Password');
+                  return password === value || 'Passwords do not match';
+                },
+              },
+            })}
+          />
+          {errors.ConfirmPassword && <p className="error">{errors.ConfirmPassword.message}</p>}
+       
+          <input type="submit" value={'Signup'} className='signupBtn' />
+        </form>
+      </fieldset>
     </div>
   );
 }
-
-export default Signup;
