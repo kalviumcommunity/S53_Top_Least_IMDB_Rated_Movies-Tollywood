@@ -128,16 +128,3 @@ form button{
   border: 1px solid white;
   width: 80px;
 }
-
-.signup{
-  border: 1px solid white;
-  width: 600px;
-  height: 740px;
-  margin: auto;
-  margin-top: auto;
-  margin-top: 4%;
-}
-
-.signup input{
-  padding: 7px;
-}
