@@ -21,6 +21,9 @@ export default function Navbar() {
           <Link to="/form">
             <li><a>FORM</a> </li>
           </Link>
+          <Link to="/signup">
+            <li><a>SIGNUP</a></li>
+          </Link>
         </ul>
     </div>
   );

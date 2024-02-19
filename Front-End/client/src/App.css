@@ -113,3 +113,35 @@ form button{
   width: 1400px;
   height: 350px;
 }
+
+.signUpPage{
+  border: 1px solid white;
+  height: 400px;
+  width: 400px;
+  margin: auto;
+  margin-top: 10%;
+}
+
+.signup{
+  font-size: 50px;
+}
+
+.username{
+  margin-top: 8%;
+
+}
+
+.signUpPage input{
+  padding: 8px;
+  margin-top: 1%;
+}
+
+.password{
+  margin-top: 7%;
+}
+
+.signupBtn{
+  margin-top: 8%;
+  border: 1px solid white;
+  width: 80px;
+}
