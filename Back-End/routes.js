@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 app.use("/movies",router)
-const {dataModel , userschema} = require("./Schema");
-
+const joi = require("joi")
+const {dataModel,userSignup} = require("./Schema");
 
 
 router.get("/movies", async (req, res) => {
@@ -39,16 +39,45 @@ router.post("/create", async (req, res) => {
 });
 
 
-router.post("/createform", async (req, res) => {
-  const data = req.body;
-  const user = new userschema(data);
-  await user.save();
-  console.log(user);
+const userValidation = joi.object({
+  Username: joi.string().required(),
+  Email: joi.string().required(),
+  Password: joi.string().required(),
+  ConfirmPassword: joi.string().required(),
+});
+
+router.post('/signupForm', async (req, res) => {
   try {
-    res.send({ message: true, user  : user });
+    const { error } = userValidation.validate(req.body); 
+    if (error) {
+      return res.json({ success: false, Message: error.details[0].message });
+    }
+    const { Email } = req.body; 
+    const user = await userSignup.findOne({ Email: Email });
+    if (user && user.Email === Email) {
+      res.json({ success: true, Message: "This user already exist please login with the another user name" })}
+    else{
+      const newData = new userSignup(req.body);
+      const savedData = await newData.save();
+      res.json({ success: true, data: savedData });
+    }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
+    res.json({ error: error.message });
+  }
+});
+
+
+router.post('/loginForm', async (req, res) => {
+  try {
+    const { Email , Password } = req.body; 
+    const user = await userSignup.findOne({ Email: Email , Password : Password });
+    if (user && user.Email === Email && user.Password === Password) {
+      res.json({ success: true, Message: "Login success" })}
+    else{
+      res.json({ success: false, message: "Please correct the user credentials" });
+    }
+  } catch (error) {
+    res.json({ error: error.message });
   }
 });
 
