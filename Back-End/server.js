@@ -28,21 +28,21 @@ app.post("/logout",(req,res)=>{
 });
 
 
-// app.get("/movies", authenticateToken, (req,res)=>{
-//   res.json({ message: "Protected Route. Movies data here." });
-// });
+app.get("/movies", authenticateToken, (req,res)=>{
+  res.json({ message: "Protected Route. Movies data here." });
+});
 
-// function authenticateToken(req,res,next){
-//   const authHeader = req.headers['authorization'];
-//   const token = authHeader && authHeader.split(" ")[1];
-//   if(token == null) return res.sendStatus(401);
+function authenticateToken(req,res,next){
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(" ")[1];
+  if(token == null) return res.sendStatus(401);
 
-//   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user)=>{
-//     if(err) return res.sendStatus(403);
-//     req.user = user;
-//     next();
-//   });
-// }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user)=>{
+    if(err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+}
 
 app.get("/ping", (req, res) => res.send("pong"));
 app.get("/", (req, res) => res.send("Hello! This is the Home Page"));
@@ -69,9 +69,3 @@ app.post("/movies/create",(req,res)=>{
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
-
-
-
-// const userSchema = joi.object({
-//   Username
-// })

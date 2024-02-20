@@ -16,7 +16,7 @@ export default function Signup() {
     console.log(data);
     try {
       const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/createform", data)
-      console.log(response.data)
+      console.log(response)
       if(response){
         if (response.data.Message=="User with this email already exists"){
           alert("This user already exists")

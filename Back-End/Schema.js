@@ -22,26 +22,28 @@ const schema = new mongoose.Schema({
   }
 });
 
-const userSchema = new mongoose.Schema({
-  Username : {
-    type : String,
-    require: true
+
+const Userschema = new mongoose.Schema({
+  Username: {
+    type: String,
+    require: true,
   },
   Email: {
-    type : String,
-    require : true
+    type: String,
+    require: true,
   },
-  Password : {
-    type : String,
-    require : true
+  Password: {
+    type: String,
+    require: true,
   },
-  ConfirmPassword :{
-    type : String,
-    require : true
+  ConfirmPassword : {
+    type: String,
+    require: true,
   }
-})
+});
 
-const userSignup = mongoose.model("Signup",userSchema)
+const userschema = mongoose.model("users",Userschema)
+
 
 const dataModel = mongoose.model("Movies_list", schema);
-module.exports = {dataModel,userSignup};
+module.exports ={ dataModel , userschema};

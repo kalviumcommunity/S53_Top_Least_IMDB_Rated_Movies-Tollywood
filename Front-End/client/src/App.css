@@ -129,6 +129,16 @@ form button{
   width: 80px;
 }
 
+
+.about h1{
+  font-size: 45px;
+}
+
+.about p{
+  font-size: 30px;
+  margin-top: 5%
+}
+
 .signup{
   border: 1px solid white;
   width: 600px;
