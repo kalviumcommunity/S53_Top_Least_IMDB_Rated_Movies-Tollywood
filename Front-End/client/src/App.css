@@ -129,7 +129,7 @@ form button{
   width: 80px;
 }
 
-<<<<<<<<< Temporary merge branch 1
+
 .about h1{
   font-size: 45px;
 }
@@ -137,7 +137,8 @@ form button{
 .about p{
   font-size: 30px;
   margin-top: 5%
-=========
+}
+
 .signup{
   border: 1px solid white;
   width: 600px;
@@ -149,5 +150,4 @@ form button{
 
 .signup input{
   padding: 7px;
->>>>>>>>> Temporary merge branch 2
 }
