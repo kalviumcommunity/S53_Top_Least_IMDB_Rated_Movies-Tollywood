@@ -13,9 +13,9 @@ export default function Signup() {
 
 
   const formSubmitHandler = async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
-      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/createform", data)
+      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/signupForm", data)
       console.log(response)
       if(response){
         if (response.data.Message=="User with this email already exists"){
@@ -40,7 +40,7 @@ export default function Signup() {
             type="text"
             name="Username"
             placeholder='Enter the User Name'
-            {...register('FirstName', {
+            {...register('Username', {
               required: 'Please provide the User Name',
               minLength: {
                 value: 4,
@@ -48,7 +48,7 @@ export default function Signup() {
               },
             })}
           />
-          {errors.FirstName && <p className="error">{errors.FirstName.message}</p>}
+          {errors.Username  && <p className="error">{errors.Username.message}</p>}
           <label style={{ color: 'gold' }}>Email:</label>
           <input
             type="email"
