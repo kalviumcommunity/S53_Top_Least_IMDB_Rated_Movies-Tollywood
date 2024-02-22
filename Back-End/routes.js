@@ -59,7 +59,7 @@ router.post('/signupForm', async (req, res) => {
     else{
       const newData = new userSignup(req.body);
       const savedData = await newData.save();
-      res.json({ success: true, data: savedData });
+      res.json({ success: true, data: newData });
     }
   } catch (error) {
     res.json({ error: error.message });
