@@ -69,7 +69,7 @@ export default function Login() {
           {errors.Password && <p className="error">{errors.Password.message}</p>}
 
        
-          <input type="submit" value={'Signup'} className='signupBtn' />
+          <input type="submit" value={'Login'} className='signupBtn' />
         </form>
       </fieldset>
     </div>
