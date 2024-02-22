@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 app.use("/movies",router)
 const joi = require("joi")
-const {dataModel,userschema} = require("./Schema");
+const {dataModel, userschema} = require("./Schema");
 
 
 router.get("/movies", async (req, res) => {
@@ -57,12 +57,12 @@ router.post('/signupForm', async (req, res) => {
     if (user && user.Email === Email) {
       res.json({ success: true, Message: "This user already exist please login with the another user name" })}
     else{
-      const newData = new userSignup(req.body);
+      const newData = new userschema(req.body);
       const savedData = await newData.save();
       res.json({ success: true, data: savedData });
     }
   } catch (error) {
-    res.json({ error: error.message });
+    res.json({ error: error });
   }
 });
 
@@ -80,7 +80,6 @@ router.post('/loginForm', async (req, res) => {
     res.json({ error: error.message });
   }
 });
-
 
 
 router.put("/:id", async (req, res) => {
