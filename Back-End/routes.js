@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 app.use("/movies",router)
 const joi = require("joi")
-const {dataModel,userSignup} = require("./Schema");
+const {dataModel, userschema} = require("./Schema");
 
 
 router.get("/movies", async (req, res) => {
@@ -53,16 +53,16 @@ router.post('/signupForm', async (req, res) => {
       return res.json({ success: false, Message: error.details[0].message });
     }
     const { Email } = req.body; 
-    const user = await userSignup.findOne({ Email: Email });
+    const user = await userschema.findOne({ Email: Email });
     if (user && user.Email === Email) {
       res.json({ success: true, Message: "This user already exist please login with the another user name" })}
     else{
-      const newData = new userSignup(req.body);
+      const newData = new userschema(req.body);
       const savedData = await newData.save();
       res.json({ success: true, data: savedData });
     }
   } catch (error) {
-    res.json({ error: error.message });
+    res.json({ error: error });
   }
 });
 
@@ -70,7 +70,7 @@ router.post('/signupForm', async (req, res) => {
 router.post('/loginForm', async (req, res) => {
   try {
     const { Email , Password } = req.body; 
-    const user = await userSignup.findOne({ Email: Email , Password : Password });
+    const user = await userschema.findOne({ Email: Email , Password : Password });
     if (user && user.Email === Email && user.Password === Password) {
       res.json({ success: true, Message: "Login success" })}
     else{
