@@ -15,7 +15,7 @@ export default function Login() {
   const formSubmitHandler = async (data) => {
     console.log(data);
     try {
-      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/loginForm", data)
+      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/loginform", data)
       console.log(response)
       if(response){
         if (response.data.Message=="Login success"){
