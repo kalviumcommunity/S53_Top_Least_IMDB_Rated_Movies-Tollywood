@@ -151,3 +151,12 @@ form button{
 .signup input{
   padding: 7px;
 }
+
+.login{
+  border: 1px solid white;
+  width: 600px;
+  height: 400px;
+  margin: auto;
+  margin-top: auto;
+  margin-top: 4%;
+}
