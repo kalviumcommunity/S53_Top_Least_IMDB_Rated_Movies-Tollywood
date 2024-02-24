@@ -1,43 +1,48 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from "axios"
-
+import { AppContext } from '../ParentContext';
+import { useNavigate } from "react-router-dom"
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitSuccessful },
-    getValues,
+    formState: { errors },
   } = useForm();
 
+  const { login,setlogin } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const data = localStorage.getItem("isLoggedin");
+    const isLoggedin = data === "true";
+    if (isLoggedin) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const formSubmitHandler = async (data) => {
-    console.log(data);
     try {
-      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/loginform", data)
-      console.log(response)
-      if(response){
-        if (response.data.Message=="Login success"){
-          alert("Login success")
-        }else{
-          alert("Please enter correct credentials")
-        }
+      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/loginform", data);
+      if (response && response.data.Message === "Login success") {
+        alert("Login success");
+        setlogin(true);
+        localStorage.setItem("isLoggedin", "true");
+        navigate("/");
+      } else {
+        alert("Please enter correct credentials");
       }
-   
     } catch (error) {
-      console.log("error:", error.message)
+      console.log("error:", error.message);
     }
   };
 
   return (
     <div className="login">
       <fieldset>
-        <legend style={{color:"cyan"}}>Login</legend>
+        <legend style={{ color: "cyan" }}>Login</legend>
         <form onSubmit={handleSubmit(formSubmitHandler)}>
-          
-
-    
           <label style={{ color: 'gold' }}>Email:</label>
           <input
             type="email"
@@ -52,7 +57,6 @@ export default function Login() {
             })}
           />
           {errors.Email && <p className="error">{errors.Email.message}</p>}
-
           <label style={{ color: 'gold' }}>Password:</label>
           <input
             type="password"
@@ -67,8 +71,6 @@ export default function Login() {
             })}
           />
           {errors.Password && <p className="error">{errors.Password.message}</p>}
-
-       
           <input type="submit" value={'Login'} className='signupBtn' />
         </form>
       </fieldset>
