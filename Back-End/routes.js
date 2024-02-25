@@ -83,23 +83,25 @@ router.post('/loginForm', async (req, res) => {
 
 
 router.put("/:id", async (req, res) => {
-  // res.json({data :req.params.id});
   try {
     const { id } = req.params;
     const data = req.body;
-    const movie1 = await dataModel.findByIdAndUpdate(id, data, { new: true });
-
-    if (!movie1) {
-      return res.status(404).json({ error: "Movie not Found" });
+    
+    const movie = await dataModel.findById(id);
+    if (!movie) {
+      return res.status(404).json({ error: "Movie not found" });
     }
 
-    res.json(movie1);
+    Object.assign(movie, data);
+    await movie.save();
 
-
+    res.json({ message: "Movie updated successfully", movie });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error updating movie:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 
 router.delete("/:id", async (req, res) => {
