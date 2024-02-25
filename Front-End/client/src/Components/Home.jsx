@@ -1,5 +1,4 @@
-import "../App.css";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import animation from "../assets/lottie-movie.json";
 import lottie from "lottie-web";
@@ -8,6 +7,7 @@ import { AppContext } from "../ParentContext";
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedActor, setSelectedActor] = useState(null);
   const { login } = useContext(AppContext);
 
   useEffect(() => {
@@ -25,14 +25,21 @@ function Home() {
     fetchData();
   }, []);
 
-  const animationOption = {
-    loop: true,
-    autoplay: true,
-    animationData: animation,
-    rendererSettings: {
-      preserveAspectRatio: "xMidyMid slice",
-    },
-  };
+  useEffect(() => {
+    const animationContainer = document.getElementById("lottie-animation");
+    const animationOption = {
+      loop: true,
+      autoplay: true,
+      animationData: animation,
+      rendererSettings: {
+        preserveAspectRatio: "xMidyMid slice",
+      },
+    };
+    lottie.loadAnimation({
+      container: animationContainer,
+      ...animationOption,
+    });
+  }, []);
 
   const deleteItem = async (id) => {
     try {
@@ -40,20 +47,13 @@ function Home() {
         `https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/${id}`
       );
       console.log("Movie deleted Successfully");
-      // Refetch data after deletion
       fetchData();
     } catch (error) {
       console.log("Error in deleting movie", error);
     }
   };
 
-  useEffect(() => {
-    const animationContainer = document.getElementById("lottie-animation");
-    lottie.loadAnimation({
-      container: animationContainer,
-      ...animationOption,
-    });
-  }, []);
+  const filteredMovies = selectedActor ? data.filter(movie => movie.Hero === selectedActor) : data;
 
   return (
     <div>
@@ -64,7 +64,19 @@ function Home() {
         ></div>
       )}
       <div className="all-movies2" style={{ filter: login ? "none" : "blur(10px)" }}>
-        {data.map((movie) => (
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn m-1">Filter By</div>
+          <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a onClick={() => setSelectedActor(null)}>All</a></li> 
+            <li><a onClick={() => setSelectedActor("Mahesh Babu")}>Mahesh Babu</a></li>
+            <li><a onClick={() => setSelectedActor("Ram Charan")}>Ram Charan</a></li>
+            <li><a onClick={() => setSelectedActor("N.T.R")}>N.T.R</a></li>
+            <li><a onClick={() => setSelectedActor("Nani")}>Nani</a></li>
+            <li><a onClick={() => setSelectedActor("Raviteja")}>Raviteja</a></li>
+            <li><a onClick={() => setSelectedActor("Prabhas")}>Prabhas</a></li>
+          </ul>
+        </div>
+        {filteredMovies.map((movie) => (
           <div className="each-movie2" key={movie._id}>
             <div className="card card-side bg-base-100 shadow-xl">
               <figure>
