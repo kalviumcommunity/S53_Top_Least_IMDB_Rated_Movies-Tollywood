@@ -1,17 +1,24 @@
 const express = require("express");
 const app = express();
 const router = express.Router();
-app.use("/movies",router)
-const joi = require("joi")
-const {dataModel, userschema} = require("./Schema");
+app.use("/movies", router);
+const joi = require("joi");
+const { dataModel, userschema } = require("./Schema");
 
+const userValidation = joi.object({
+  Username: joi.string().required(),
+  Email: joi.string().required(),
+  Password: joi.string().required(),
+  ConfirmPassword: joi.string().required(),
+});
 
-router.get("/movies", async (req, res) => {
+router.get("/data/all", async (req, res) => {
   try {
     const newMovie = await dataModel.find();
     console.log("newMovie: ", newMovie);
-    res.send(newMovie);
+    res.json(newMovie);
   } catch (err) {
+    res.json(err);
     console.log("error");
   }
 });
@@ -38,25 +45,21 @@ router.post("/create", async (req, res) => {
   }
 });
 
-
-const userValidation = joi.object({
-  Username: joi.string().required(),
-  Email: joi.string().required(),
-  Password: joi.string().required(),
-  ConfirmPassword: joi.string().required(),
-});
-
-router.post('/signupForm', async (req, res) => {
+router.post("/signupForm", async (req, res) => {
   try {
-    const { error } = userValidation.validate(req.body); 
+    const { error } = userValidation.validate(req.body);
     if (error) {
       return res.json({ success: false, Message: error.details[0].message });
     }
-    const { Email } = req.body; 
+    const { Email } = req.body;
     const user = await userschema.findOne({ Email: Email });
     if (user && user.Email === Email) {
-      res.json({ success: true, Message: "This user already exist please login with the another user name" })}
-    else{
+      res.json({
+        success: true,
+        Message:
+          "This user already exist please login with the another user name",
+      });
+    } else {
       const newData = new userschema(req.body);
       const savedData = await newData.save();
       res.json({ success: true, data: newData });
@@ -66,27 +69,28 @@ router.post('/signupForm', async (req, res) => {
   }
 });
 
-
-router.post('/loginForm', async (req, res) => {
+router.post("/loginForm", async (req, res) => {
   try {
-    const { Email , Password } = req.body; 
-    const user = await userschema.findOne({ Email: Email , Password : Password });
+    const { Email, Password } = req.body;
+    const user = await userschema.findOne({ Email: Email, Password: Password });
     if (user && user.Email === Email && user.Password === Password) {
-      res.json({ success: true, Message: "Login success" })}
-    else{
-      res.json({ success: false, message: "Please correct the user credentials" });
+      res.json({ success: true, Message: "Login success" });
+    } else {
+      res.json({
+        success: false,
+        message: "Please correct the user credentials",
+      });
     }
   } catch (error) {
     res.json({ error: error.message });
   }
 });
 
-
 router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    
+
     const movie = await dataModel.findByIdAndUpdate(id);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
@@ -101,8 +105,6 @@ router.put("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-
 
 router.delete("/:id", async (req, res) => {
   try {

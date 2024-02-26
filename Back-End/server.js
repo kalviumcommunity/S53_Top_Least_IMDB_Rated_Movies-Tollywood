@@ -4,13 +4,13 @@ const jwt = require("jsonwebtoken");
 const joi = require("joi");
 const connectDB = require("./db");
 const cors = require("cors");
-
+const router = require("./routes");
 const app = express();
 app.use(express.json());
 app.use(cors());
-
 connectDB();
 
+app.use("/movies", router);
 const PORT = process.env.PORT || 3000;
 const schema = joi.object({
   Hero: joi.string().min(3).max(12).required(),
@@ -22,7 +22,10 @@ const schema = joi.object({
 
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
-  const accessToken = jwt.sign({ username: username }, process.env.ACCESS_TOKEN_SECRET);
+  const accessToken = jwt.sign(
+    { username: username },
+    process.env.ACCESS_TOKEN_SECRET
+  );
   res.cookie("access_token", accessToken, { httpOnly: true });
   res.json({ message: "Login successful" });
 });
