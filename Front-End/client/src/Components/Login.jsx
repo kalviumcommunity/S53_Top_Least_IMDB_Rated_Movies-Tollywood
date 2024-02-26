@@ -16,19 +16,19 @@ export default function Login() {
 
   useEffect(() => {
     const data = localStorage.getItem("isLoggedin");
-    const isLoggedin = data === "true";
-    if (isLoggedin) {
+    // const isLoggedin = data === "true";
+    if (data==="true") {
       navigate("/");
     }
-  }, [navigate]);
+  }, []);
 
   const formSubmitHandler = async (data) => {
     try {
-      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/loginform", data);
+      const response = await axios.post("http://localhost:3000/movies/loginform", data);
       if (response && response.data.Message === "Login success") {
         alert("Login success");
         setlogin(true);
-        localStorage.setItem("isLoggedin", "true");
+        localStorage.setItem("isLoggedin", true);
         navigate("/");
       } else {
         alert("Please enter correct credentials");

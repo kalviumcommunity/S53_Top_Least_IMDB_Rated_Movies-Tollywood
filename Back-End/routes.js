@@ -87,7 +87,7 @@ router.put("/:id", async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     
-    const movie = await dataModel.findById(id);
+    const movie = await dataModel.findByIdAndUpdate(id);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
     }

@@ -12,7 +12,6 @@ export default function Navbar() {
 
   const handleLogin = () => {
     if (login) {
-      // Log out
       localStorage.setItem("isLoggedin", "false");
       setlogin(false);
       navigate("/login");

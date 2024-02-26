@@ -12,7 +12,7 @@ function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const url = "https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/movies";
+      const url = "http://localhost:3000/movies/movies";
       try {
         const res = await axios.get(url);
         setData(res.data);
@@ -63,7 +63,7 @@ function Home() {
           style={{ width: "350px", margin: "auto", marginTop: "18%" }}
         ></div>
       )}
-      <div className="all-movies2" style={{ filter: login ? "none" : "blur(10px)" }}>
+      <div className="all-movies2" style={{ filter: !login ? "blur(10px)" : "none" }}>
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn m-1">Filter By</div>
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
