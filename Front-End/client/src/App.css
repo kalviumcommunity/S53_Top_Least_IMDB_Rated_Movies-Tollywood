@@ -160,3 +160,12 @@ form button{
   margin-top: auto;
   margin-top: 4%;
 }
+
+.updateForm{
+  border: 1px solid gold;
+  width: 450px;
+  height: 250px;
+  margin: auto;
+  margin-top: 10%;
+
+}

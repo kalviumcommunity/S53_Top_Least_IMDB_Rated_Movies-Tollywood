@@ -30,7 +30,7 @@ export default function Update() {
   };
 
   return (
-    <div>
+    <div className='updateForm'>
       <fieldset>
         <legend style={{color:"cyan"}}>Update</legend>
         <form onSubmit={handleSubmit(formSubmitHandler)}>
