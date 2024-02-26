@@ -16,6 +16,7 @@ export default function Navbar() {
       setlogin(false);
       navigate("/login");
       alert("Your Logging Out")
+      document.cookie = `user=; expires=Thu, 10 Jan 2000 00:00:00 UTC; path=/;`;
     } 
   };
   console.log(login);
