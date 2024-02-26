@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from "axios";
+import {useParams} from 'react-router-dom'
 
 export default function Update() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+  const [review,setReview] = useState("")
+  const {id} = useParams();
+  const UpdatingReview = () =>{
+    axios.patch(`https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/${id}`,{
+      "Ratings" : review
+    })
+    .then((res)=>{
+      console.log(res)
+      console.log("updated")
+    }).catch((err)=>{
+      console.err(err)
+    })
+
+  }
+
   const formSubmitHandler = async (data) => {
     try {
-      const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/update", data);
-      console.log(response);
-      if (response && response.data.Message === "User with this email already exists") {
-        alert("This user already exists");
-      }
+      // const updatedData = await axios.patch(`https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/${id}`)
     } catch (error) {
       console.log("error:", error.message);
     }
@@ -30,11 +42,10 @@ export default function Update() {
             {...register('Ratings', {
               required: 'Please update the Ratings'
             })}
+            onChange={(e)=>{setReview(e.target.value)}}
           />
           {errors.Ratings && <p className="error">{errors.Ratings.message}</p>}
-          <button onClick={()=>{
-            
-          }}>SUBMIT</button>
+          <button onClick={UpdatingReview}>SUBMIT</button>
         </form>
       </fieldset>
     </div>

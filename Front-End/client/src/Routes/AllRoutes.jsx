@@ -16,7 +16,7 @@ function AllRoutes() {
     <Route path="/contact" element={<Contact/>}/>
     <Route path="/form" element={<FormsUse />}/>
     <Route path="/signup" element={<Signup/>}/>
-    <Route path="/update" element={<Update/>}/>
+    <Route path="/update/:id" element={<Update/>}/>
   </Routes>;
 }
 

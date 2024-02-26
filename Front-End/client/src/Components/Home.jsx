@@ -3,6 +3,8 @@ import axios from "axios";
 import animation from "../assets/lottie-movie.json";
 import lottie from "lottie-web";
 import { AppContext } from "../ParentContext";
+import Update from "../UpdateForm";
+import  {Link} from 'react-router-dom'
 
 function Home() {
   const [data, setData] = useState([]);
@@ -11,7 +13,7 @@ function Home() {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [newRatings, setNewRatings] = useState("");
-  const { login } = useContext(AppContext);
+  const { login , setUpdate , update } = useContext(AppContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -56,24 +58,12 @@ function Home() {
     }
   };
 
-  const updateRatings = async () => {
-    try {
-      const response = await axios.patch(
-        `https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/${selectedMovie._id}`,
-        { Ratings: newRatings }
-      );
-      console.log("Movie updated successfully:", response.data);
-      setUpdateModalOpen(false);
-      fetchData();
-    } catch (error) {
-      console.error("Error updating movie:", error);
-    }
-  };
 
   const filteredMovies = selectedActor ? data.filter(movie => movie.Hero === selectedActor) : data;
 
   return (
     <div>
+      {/* <Update /> */}
       {loading && (
         <div
           id="lottie-animation"
@@ -104,11 +94,12 @@ function Home() {
                 <h2 className="card-title">Hero: {movie.Hero}</h2>
                 <h2 className="card-title">Ratings: ⭐{movie.Ratings}</h2>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary" onClick={() => {
-                    setUpdateModalOpen(true);
-                    setSelectedMovie(movie);
-                    setNewRatings(movie.Ratings);
-                  }}>UPDATE</button>
+                <Link to = {`/update/${movie._id}`}>
+                  <button className="btn btn-primary" onClick={() => {}}>UPDATE</button>
+                </Link>
+                  {/* <div style={{display : update ? "block" : "none"}}>
+                    <Update />
+                  </div> */}
                   <button
                     className="btn btn-primary"
                     onClick={() => {
