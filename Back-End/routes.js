@@ -86,15 +86,14 @@ router.post("/loginForm", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
-
-    const movie = await dataModel.findByIdAndUpdate(id);
+    const movie = await dataModel.findById(id);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
     }
+    movie.Ratings = req.body.Ratings
     res.json({ message: "Movie updated successfully", movie });
   } catch (error) {
     console.error("Error updating movie:", error);
