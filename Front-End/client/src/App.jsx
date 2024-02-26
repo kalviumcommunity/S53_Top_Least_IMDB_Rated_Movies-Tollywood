@@ -11,7 +11,7 @@ function App() {
   const {setlogin} = useContext(AppContext)
 
   useEffect(()=>{
-    let data = localStorage.getItem("isLoggedIn")
+    let data = localStorage.getItem("isLoggedin")
     if(data == "true"){
       setlogin(true);
     }else{
