@@ -12,7 +12,7 @@ const userValidation = joi.object({
   ConfirmPassword: joi.string().required(),
 });
 
-router.get("/data/all", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const newMovie = await dataModel.find();
     console.log("newMovie: ", newMovie);
