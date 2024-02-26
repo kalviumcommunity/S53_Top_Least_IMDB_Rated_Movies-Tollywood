@@ -8,11 +8,14 @@ function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedActor, setSelectedActor] = useState(null);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [newRatings, setNewRatings] = useState("");
   const { login } = useContext(AppContext);
 
   useEffect(() => {
     async function fetchData() {
-      const url = "https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies";
+      const url = "https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/movies";
       try {
         const res = await axios.get(url);
         setData(res.data);
@@ -53,6 +56,20 @@ function Home() {
     }
   };
 
+  const updateRatings = async () => {
+    try {
+      const response = await axios.patch(
+        `https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/${selectedMovie._id}`,
+        { Ratings: newRatings }
+      );
+      console.log("Movie updated successfully:", response.data);
+      setUpdateModalOpen(false);
+      fetchData();
+    } catch (error) {
+      console.error("Error updating movie:", error);
+    }
+  };
+
   const filteredMovies = selectedActor ? data.filter(movie => movie.Hero === selectedActor) : data;
 
   return (
@@ -87,7 +104,11 @@ function Home() {
                 <h2 className="card-title">Hero: {movie.Hero}</h2>
                 <h2 className="card-title">Ratings: ⭐{movie.Ratings}</h2>
                 <div className="card-actions justify-end">
-                  <button className="btn btn-primary">UPDATE</button>
+                  <button className="btn btn-primary" onClick={() => {
+                    setUpdateModalOpen(true);
+                    setSelectedMovie(movie);
+                    setNewRatings(movie.Ratings);
+                  }}>UPDATE</button>
                   <button
                     className="btn btn-primary"
                     onClick={() => {
@@ -102,6 +123,22 @@ function Home() {
           </div>
         ))}
       </div>
+      {updateModalOpen && (
+        <div className="modal">
+          <div className="modal-box">
+            <h2>Update Ratings</h2>
+            <input
+              type="text"
+              value={newRatings}
+              onChange={(e) => setNewRatings(e.target.value)}
+            />
+            <div className="modal-buttons">
+              <button onClick={() => setUpdateModalOpen(false)}>Cancel</button>
+              <button onClick={updateRatings}>Update</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

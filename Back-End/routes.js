@@ -94,6 +94,7 @@ router.patch("/:id", async (req, res) => {
       return res.status(404).json({ error: "Movie not found" });
     }
     movie.Ratings = req.body.Ratings
+    await movie.save()
     res.json({ message: "Movie updated successfully", movie });
   } catch (error) {
     console.error("Error updating movie:", error);
