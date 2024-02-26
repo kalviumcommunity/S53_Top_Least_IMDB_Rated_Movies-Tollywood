@@ -12,7 +12,7 @@ const userValidation = joi.object({
   ConfirmPassword: joi.string().required(),
 });
 
-router.get("/", async (req, res) => {
+router.get("/movies", async (req, res) => {
   try {
     const newMovie = await dataModel.find();
     console.log("newMovie: ", newMovie);
@@ -86,19 +86,14 @@ router.post("/loginForm", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const data = req.body;
-
-    const movie = await dataModel.findByIdAndUpdate(id);
+    const movie = await dataModel.findById(id);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
     }
-
-    Object.assign(movie, data);
-    await movie.save();
-
+    movie.Ratings = req.body.Ratings
     res.json({ message: "Movie updated successfully", movie });
   } catch (error) {
     console.error("Error updating movie:", error);
