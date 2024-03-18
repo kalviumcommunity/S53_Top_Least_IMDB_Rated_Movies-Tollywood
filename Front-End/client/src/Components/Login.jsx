@@ -27,7 +27,7 @@ export default function Login() {
       const response = await axios.post("https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/loginForm", data);
       if (response && response.data.Message === "Login success") {
         alert("Login success");
-        document.cookie = `user=${data.Email}`
+        document.cookie = `user=${data.Email}`  
         setlogin(true);
         localStorage.setItem("isLoggedin", true);
         navigate("/");
