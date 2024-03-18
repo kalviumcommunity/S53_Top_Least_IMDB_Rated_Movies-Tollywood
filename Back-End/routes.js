@@ -7,7 +7,7 @@ const { dataModel, userschema } = require("./Schema");
 
 const userValidation = joi.object({
   Username: joi.string().required(),
-  Email: joi.string().required(),
+  Email: joi.string().required(), 
   Password: joi.string().required(),
   ConfirmPassword: joi.string().required(),
 });

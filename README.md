@@ -11,6 +11,10 @@ This project focuses on providing a deep analysis of IMDb ratings for Tollywood 
 - **Detailed Information:** Access information about the cast and crew, including their individual IMDb ratings.
 - **Insightful Analysis:** Gain insights into trends, genres, or any interesting patterns in the IMDb ratings.
 
-# Live server Link :
+# Render Link :
 
 https://s53-top-least-imdb-rated-movies-tollywood.onrender.com
+
+
+# Vercel Link :
+
