@@ -19,18 +19,27 @@ function Home() {
 
   useEffect(() => {
     async function fetchData() {
+
       const url = "https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/movies";
+      
       try {
         const res = await axios.get(url);
+
         setData(res.data);
+
         setLoading(false);
+
       } catch (error) {
         console.error("Error fetching movies:", error);
+
       }
+      
     }
 
     fetchData();
+
   }, []);
+
 
   useEffect(() => {
     const animationContainer = document.getElementById("lottie-animation");
