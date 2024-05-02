@@ -15,6 +15,8 @@ function Home() {
   const [newRatings, setNewRatings] = useState("");
   const { login , setUpdate , update } = useContext(AppContext);
 
+  
+
   useEffect(() => {
     async function fetchData() {
       const url = "https://s53-top-least-imdb-rated-movies-tollywood.onrender.com/movies/movies";
